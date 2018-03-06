@@ -34,7 +34,7 @@ Organizations:
 
     - &Org1
         Name: CaixabankMSP
-        ID: Caixabank1MSP
+        ID: CaixabankMSP
         MSPDir: crypto-config/peerOrganizations/caixabank.alastria.com/msp
 
         AnchorPeers:
