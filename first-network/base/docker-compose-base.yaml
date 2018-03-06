@@ -7,8 +7,8 @@ version: '2'
 
 services:
 
-  orderer.example.com:
-    container_name: orderer.example.com
+  orderer.alastria.com:
+    container_name: orderer.alastria.com
     image: hyperledger/fabric-orderer:$IMAGE_TAG
     environment:
       - ORDERER_GENERAL_LOGLEVEL=debug
@@ -26,88 +26,51 @@ services:
     command: orderer
     volumes:
     - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-    - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
-    - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
-    - orderer.example.com:/var/hyperledger/production/orderer
+    - ../crypto-config/ordererOrganizations/alastria.com/orderers/orderer.alastria.com/msp:/var/hyperledger/orderer/msp
+    - ../crypto-config/ordererOrganizations/alastria.com/orderers/orderer.alastria.com/tls/:/var/hyperledger/orderer/tls
+    - orderer.alastria.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
 
-  peer0.org1.example.com:
-    container_name: peer0.org1.example.com
+  peer0.caixabank.alastria.com:
+    container_name: peer0.caixabank.alastria.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=peer0.org1.example.com
-      - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
-      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_ID=peer0.caixabank.alastria.com
+      - CORE_PEER_ADDRESS=peer0.caixabank.alastria.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.caixabank.alastria.com:7051
+      - CORE_PEER_LOCALMSPID=CaixabankMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.org1.example.com:/var/hyperledger/production
+        - ../crypto-config/peerOrganizations/caixabank.alastria.com/peers/peer0.caixabank.alastria.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/caixabank.alastria.com/peers/peer0.caixabank.alastria.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.caixabank.alastria.com:/var/hyperledger/production
     ports:
       - 7051:7051
       - 7053:7053
 
-  peer1.org1.example.com:
-    container_name: peer1.org1.example.com
+  
+
+  peer0.alastria.alastria.com:
+    container_name: peer0.alastria.alastria.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=peer1.org1.example.com
-      - CORE_PEER_ADDRESS=peer1.org1.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.example.com:7051
-      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_ID=peer0.alastria.alastria.com
+      - CORE_PEER_ADDRESS=peer0.alastria.alastria.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.alastria.alastria.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.alastria.alastria.com:7051
+      - CORE_PEER_LOCALMSPID=AlastriaMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer1.org1.example.com:/var/hyperledger/production
-
-    ports:
-      - 8051:7051
-      - 8053:7053
-
-  peer0.org2.example.com:
-    container_name: peer0.org2.example.com
-    extends:
-      file: peer-base.yaml
-      service: peer-base
-    environment:
-      - CORE_PEER_ID=peer0.org2.example.com
-      - CORE_PEER_ADDRESS=peer0.org2.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:7051
-      - CORE_PEER_LOCALMSPID=Org2MSP
-    volumes:
-        - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.org2.example.com:/var/hyperledger/production
+        - ../crypto-config/peerOrganizations/alastria.alastria.com/peers/peer0.alastria.alastria.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/alastria.alastria.com/peers/peer0.alastria.alastria.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.alastria.alastria.com:/var/hyperledger/production
     ports:
       - 9051:7051
       - 9053:7053
 
-  peer1.org2.example.com:
-    container_name: peer1.org2.example.com
-    extends:
-      file: peer-base.yaml
-      service: peer-base
-    environment:
-      - CORE_PEER_ID=peer1.org2.example.com
-      - CORE_PEER_ADDRESS=peer1.org2.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.example.com:7051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.example.com:7051
-      - CORE_PEER_LOCALMSPID=Org2MSP
-    volumes:
-        - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer1.org2.example.com:/var/hyperledger/production
-    ports:
-      - 10051:7051
-      - 10053:7053
+ 
