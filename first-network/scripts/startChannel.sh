@@ -15,7 +15,7 @@ echo -e '\n\n\e[92m//////// --- Configurando Anchor Peer Alastria --- ////////\e
 CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/alastria.alastria.com/users/Admin@alastria.alastria.com/msp CORE_PEER_ADDRESS=peer0.alastria.alastria.com:7051 CORE_PEER_LOCALMSPID="AlastriaMSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/alastria.alastria.com/peers/peer0.alastria.alastria.com/tls/ca.crt peer channel update -o orderer.alastria.com:7050 -c $CHANNEL_NAME -f /opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts/AlastriaMSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/alastria.com/orderers/orderer.alastria.com/msp/tlscacerts/tlsca.alastria.com-cert.pem
 
 echo -e '\n\n\e[92m//////// --- instalando Chaincode --- ////////\e[39m'
-peer chaincode install -n test1 -v 1.0 -p github.com/chaincode/go/chaincode_example02
+peer chaincode install -n test1 -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02
 
 echo -e '\n\n\e[92m//////// --- Instanciando Chaincode --- ////////\e[39m'
 peer chaincode instantiate -o orderer.alastria.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/alastria.com/orderers/orderer.alastria.com/msp/tlscacerts/tlsca.alastria.com-cert.pem -C $CHANNEL_NAME -n test1 -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"
