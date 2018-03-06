@@ -18,7 +18,7 @@ echo -e '\n\n\e[92m//////// --- instalando Chaincode --- ////////\e[39m'
 peer chaincode install -n test -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02
 
 echo -e '\n\n\e[92m//////// --- Instanciando Chaincode --- ////////\e[39m'
-peer chaincode instantiate -o orderer.alastria.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/alastria.com/orderers/orderer.alastria.com/msp/tlscacerts/tlsca.alastria.com-cert.pem -C $CHANNEL_NAME -n test -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"
+peer chaincode instantiate -o orderer.alastria.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/alastria.com/orderers/orderer.alastria.com/msp/tlscacerts/tlsca.alastria.com-cert.pem -C $CHANNEL_NAME -n test -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "OR ('CaixabankMSP.member','AlastriaMSP.member')"
 
 echo -e '\n\n\e[92m//////// --- Query Chaincode --- ////////\e[39m'
 peer chaincode query -C $CHANNEL_NAME -n test -c '{"Args":["query","a"]}'
