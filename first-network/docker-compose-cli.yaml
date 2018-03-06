@@ -24,7 +24,7 @@ services:
     networks:
       - byfn
 
-  peer0.caixabank.alastria.com
+  peer0.caixabank.alastria.com:
     container_name: peer0.caixabank.alastria.com
     extends:
       file:  base/docker-compose-base.yaml
